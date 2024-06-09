@@ -13,7 +13,7 @@ class MainView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Spacer(),
+            const Spacer(),
             const WeatherOverview(),
             Flexible(
               child: Column(
