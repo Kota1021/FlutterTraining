@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_training/weather_kind.dart';
 import 'package:flutter_training/weather_overview.dart';
@@ -73,5 +74,17 @@ class _MainViewState extends State<MainView> {
         ),
       ),
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(
+      DiagnosticsProperty<YumemiWeather>('yumemiWeather', yumemiWeather),
+    );
+    properties.add(EnumProperty<WeatherKind?>('weatherKind', weatherKind));
+    properties.add(EnumProperty<WeatherKind?>('weatherKind', weatherKind));
+    properties.add(EnumProperty<WeatherKind?>('weatherKind', weatherKind));
+    properties.add(EnumProperty<WeatherKind?>('weatherKind', weatherKind));
   }
 }

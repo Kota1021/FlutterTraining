@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_training/weather_kind.dart';
 
 class WeatherOverview extends StatelessWidget {
-  const WeatherOverview(
-      {super.key,
-      required this.weatherKind,
-      required this.lowest,
-      required this.highest});
+  const WeatherOverview({
+    required this.weatherKind,
+    required this.lowest,
+    required this.highest,
+    super.key,
+  });
   final int? lowest;
   final int? highest;
   final WeatherKind? weatherKind;
@@ -14,7 +16,6 @@ class WeatherOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final labelLargeStyle = Theme.of(context).textTheme.labelLarge;
-    Widget icon;
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -48,5 +49,14 @@ class WeatherOverview extends StatelessWidget {
         ),
       ],
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+        .add(DiagnosticsProperty<WeatherKind>('weatherKind', weatherKind));
+    properties.add(DiagnosticsProperty<int>('lowest', lowest));
+    properties.add(DiagnosticsProperty<int>('highest', highest));
   }
 }
