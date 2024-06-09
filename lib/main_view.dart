@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_training/weather_kind.dart';
 import 'package:flutter_training/weather_overview.dart';
+import 'package:yumemi_weather/yumemi_weather.dart';
 
-class MainView extends StatelessWidget {
+class MainView extends StatefulWidget {
   const MainView({super.key});
+
+  @override
+  State<MainView> createState() => _MainViewState();
+}
+
+class _MainViewState extends State<MainView> {
+  final yumemiWeather = YumemiWeather();
+  WeatherKind? weatherKind;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +24,11 @@ class MainView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(),
-            const WeatherOverview(),
+            WeatherOverview(
+              weatherKind: weatherKind,
+              lowest: null,
+              highest: null,
+            ),
             Flexible(
               child: Column(
                 children: [
@@ -34,7 +48,14 @@ class MainView extends StatelessWidget {
                       ),
                       Expanded(
                         child: TextButton(
-                          onPressed: () {/* ボタンがタップされた時の処理 */},
+                          onPressed: () {
+                            final weatherStr =
+                                yumemiWeather.fetchSimpleWeather();
+                            setState(() {
+                              weatherKind =
+                                  WeatherKind.values.byName(weatherStr);
+                            });
+                          },
                           child: Text(
                             'Reload',
                             textAlign: TextAlign.center,
