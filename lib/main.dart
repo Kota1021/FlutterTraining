@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/main_view.dart';
 import 'package:flutter_training/green_widget.dart';
 
 void main() {
