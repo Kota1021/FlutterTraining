@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/weather_overview_widget.dart';
+import 'package:flutter_training/weather_overview.dart';
 
 class MainView extends StatelessWidget {
   const MainView({super.key});
@@ -14,7 +14,7 @@ class MainView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Spacer(),
-            const WeatherOverviewWidget(),
+            const WeatherOverview(),
             Flexible(
               child: Column(
                 children: [
