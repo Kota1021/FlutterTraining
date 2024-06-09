@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/weather_overview_widget.dart';
 
-class MainWidget extends StatelessWidget {
-  const MainWidget({super.key});
+class MainView extends StatelessWidget {
+  const MainView({super.key});
 
   @override
   Widget build(BuildContext context) {
