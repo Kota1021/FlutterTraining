@@ -14,7 +14,7 @@ class WeatherOverviewWidget extends StatelessWidget {
           children: [
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(top: 16, bottom: 16),
+                padding: const EdgeInsets.symmetric(vertical: 16),
                 child: Text(
                   '**℃',
                   textAlign: TextAlign.center,
@@ -24,7 +24,7 @@ class WeatherOverviewWidget extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(top: 16, bottom: 16),
+                padding: const EdgeInsets.symmetric(vertical: 16),
                 child: Text(
                   '**℃',
                   textAlign: TextAlign.center,
