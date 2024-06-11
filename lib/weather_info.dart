@@ -1,5 +1,9 @@
 import 'package:flutter_training/weather_kind.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'weather_info.g.dart';
+
+@JsonSerializable()
 class WeatherInfo {
   WeatherInfo({
     required this.weatherKind,
@@ -7,12 +11,13 @@ class WeatherInfo {
     required this.highest,
   });
 
-  WeatherInfo.fromJson(Map<String, dynamic> json)
-      : weatherKind =
-            WeatherKind.values.byName(json['weather_condition'].toString()),
-        lowest = json['min_temperature'] as int,
-        highest = json['max_temperature'] as int;
+  factory WeatherInfo.fromJson(Map<String, dynamic> json) =>
+      _$WeatherInfoFromJson(json);
+
+  @JsonKey(name: 'weather_condition')
   WeatherKind weatherKind;
+  @JsonKey(name: 'max_temperature')
   int highest;
+  @JsonKey(name: 'min_temperature')
   int lowest;
 }
