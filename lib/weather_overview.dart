@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_training/weather_info.dart';
 import 'package:flutter_training/weather_kind.dart';
 
 class WeatherOverview extends StatelessWidget {
   const WeatherOverview({
-    required this.weatherKind,
-    required this.lowest,
-    required this.highest,
+    required this.weatherInfo,
     super.key,
   });
-  final int? lowest;
-  final int? highest;
-  final WeatherKind? weatherKind;
+
+  final WeatherInfo? weatherInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +19,7 @@ class WeatherOverview extends StatelessWidget {
       children: [
         AspectRatio(
           aspectRatio: 1,
-          child: weatherKind?.svgImage ?? const Placeholder(),
+          child: weatherInfo?.weatherKind.svgImage ?? const Placeholder(),
         ),
         Row(
           children: [
@@ -29,7 +27,7 @@ class WeatherOverview extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: Text(
-                  '${lowest ?? '**'}℃',
+                  '${weatherInfo?.lowest ?? '**'}℃',
                   textAlign: TextAlign.center,
                   style: labelLargeStyle?.copyWith(color: Colors.blue),
                 ),
@@ -39,7 +37,7 @@ class WeatherOverview extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
                 child: Text(
-                  '${highest ?? '**'}℃',
+                  '${weatherInfo?.highest ?? '**'}℃',
                   textAlign: TextAlign.center,
                   style: labelLargeStyle?.copyWith(color: Colors.red),
                 ),
@@ -54,9 +52,13 @@ class WeatherOverview extends StatelessWidget {
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties
-        .add(DiagnosticsProperty<WeatherKind>('weatherKind', weatherKind));
-    properties.add(DiagnosticsProperty<int>('lowest', lowest));
-    properties.add(DiagnosticsProperty<int>('highest', highest));
+    properties.add(
+      DiagnosticsProperty<WeatherKind>(
+        'weatherKind',
+        weatherInfo?.weatherKind,
+      ),
+    );
+    properties.add(DiagnosticsProperty<int>('lowest', weatherInfo?.lowest));
+    properties.add(DiagnosticsProperty<int>('highest', weatherInfo?.highest));
   }
 }

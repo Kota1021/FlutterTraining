@@ -1,6 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_training/weather_kind.dart';
+import 'package:flutter_training/weather_info.dart';
 import 'package:flutter_training/weather_overview.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
@@ -13,7 +14,7 @@ class MainView extends StatefulWidget {
 
 class _MainViewState extends State<MainView> {
   final yumemiWeather = YumemiWeather();
-  WeatherKind? weatherKind;
+  WeatherInfo? weatherInfo;
 
   Future<void> showErrorDialog(YumemiWeatherError error) async {
     await showDialog<String>(
@@ -42,9 +43,7 @@ class _MainViewState extends State<MainView> {
           children: [
             const Spacer(),
             WeatherOverview(
-              weatherKind: weatherKind,
-              lowest: null,
-              highest: null,
+              weatherInfo: weatherInfo,
             ),
             Flexible(
               child: Column(
@@ -68,12 +67,20 @@ class _MainViewState extends State<MainView> {
                       Expanded(
                         child: TextButton(
                           onPressed: () async {
+                            const inputJSON = '''
+{
+    "area": "tokyo",
+    "date": "2020-04-01T12:00:00+09:00"
+}''';
                             try {
-                              final weatherStr =
-                                  yumemiWeather.fetchThrowsWeather('tokyo');
+                              final weatherJson =
+                                  YumemiWeather().fetchWeather(inputJSON);
+                              final parsed = json.decode(weatherJson)
+                                  as Map<String, dynamic>;
+                              final fetchedWeatherInfo =
+                                  WeatherInfo.fromJson(parsed);
                               setState(() {
-                                weatherKind =
-                                    WeatherKind.values.byName(weatherStr);
+                                weatherInfo = fetchedWeatherInfo;
                               });
                             } on YumemiWeatherError catch (e) {
                               await showErrorDialog(e);
@@ -104,9 +111,8 @@ class _MainViewState extends State<MainView> {
     properties.add(
       DiagnosticsProperty<YumemiWeather>('yumemiWeather', yumemiWeather),
     );
-    properties.add(EnumProperty<WeatherKind?>('weatherKind', weatherKind));
-    properties.add(EnumProperty<WeatherKind?>('weatherKind', weatherKind));
-    properties.add(EnumProperty<WeatherKind?>('weatherKind', weatherKind));
-    properties.add(EnumProperty<WeatherKind?>('weatherKind', weatherKind));
+    properties.add(
+      DiagnosticsProperty<WeatherInfo>('weatherInfo', weatherInfo),
+    );
   }
 }
