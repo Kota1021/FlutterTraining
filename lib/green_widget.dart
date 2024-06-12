@@ -22,7 +22,9 @@ class _GreenWidgetState extends State<GreenWidget> {
 
     // Navigator を使って画面遷移
     // ignore: always_put_control_body_on_new_line
-    if (!mounted) return;
+    if (!context.mounted) return;
+    // Navigator を使って画面遷移
+    // ignore: use_build_context_synchronously
     await Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (context) {
