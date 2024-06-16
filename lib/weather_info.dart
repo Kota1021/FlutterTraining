@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'weather_info.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(createToJson: false)
 class WeatherInfo {
   WeatherInfo({
     required this.weatherKind,
