@@ -8,10 +8,10 @@ part of 'request.dart';
 
 Request _$RequestFromJson(Map<String, dynamic> json) => Request(
       area: json['area'] as String,
-      date: json['date'] as String,
+      date: const DateTimeConverter().fromJson(json['date'] as String),
     );
 
 Map<String, dynamic> _$RequestToJson(Request instance) => <String, dynamic>{
       'area': instance.area,
-      'date': instance.date,
+      'date': const DateTimeConverter().toJson(instance.date),
     };
