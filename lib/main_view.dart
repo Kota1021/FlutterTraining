@@ -15,6 +15,22 @@ class _MainViewState extends State<MainView> {
   final yumemiWeather = YumemiWeather();
   WeatherKind? weatherKind;
 
+  Future<void> showErrorDialog(YumemiWeatherError error) async {
+    await showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('天気の取得に失敗'),
+        content: Text('error name: ${error.name}'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'OK'),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final labelLargeStyle = Theme.of(context).textTheme.labelLarge;
@@ -51,13 +67,17 @@ class _MainViewState extends State<MainView> {
                       ),
                       Expanded(
                         child: TextButton(
-                          onPressed: () {
-                            final weatherStr =
-                                yumemiWeather.fetchSimpleWeather();
-                            setState(() {
-                              weatherKind =
-                                  WeatherKind.values.byName(weatherStr);
-                            });
+                          onPressed: () async {
+                            try {
+                              final weatherStr =
+                                  yumemiWeather.fetchThrowsWeather('tokyo');
+                              setState(() {
+                                weatherKind =
+                                    WeatherKind.values.byName(weatherStr);
+                              });
+                            } on YumemiWeatherError catch (e) {
+                              await showErrorDialog(e);
+                            }
                           },
                           child: Text(
                             'Reload',
