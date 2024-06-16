@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_training/request.dart';
 import 'package:flutter_training/weather_info.dart';
 import 'package:flutter_training/weather_overview.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
@@ -67,14 +68,14 @@ class _MainViewState extends State<MainView> {
                       Expanded(
                         child: TextButton(
                           onPressed: () async {
-                            const inputJSON = '''
-{
-    "area": "tokyo",
-    "date": "2020-04-01T12:00:00+09:00"
-}''';
+                            final request = Request(
+                              area: 'tokyo',
+                              date: DateTime.now(),
+                            );
+                            final input = jsonEncode(request.toJson());
                             try {
                               final weatherJson =
-                                  YumemiWeather().fetchWeather(inputJSON);
+                                  YumemiWeather().fetchWeather(input);
                               final parsed = json.decode(weatherJson)
                                   as Map<String, dynamic>;
                               final fetchedWeatherInfo =
