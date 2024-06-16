@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_training/main_view.dart';
+import 'package:flutter_training/on_appear_mixin.dart';
 
 class GreenWidget extends StatefulWidget {
   const GreenWidget({super.key});
@@ -9,14 +10,9 @@ class GreenWidget extends StatefulWidget {
   State<GreenWidget> createState() => _GreenWidgetState();
 }
 
-class _GreenWidgetState extends State<GreenWidget> {
+class _GreenWidgetState extends State<GreenWidget> with OnAppearMixin {
   @override
-  void initState() {
-    super.initState();
-    unawaited(_navigateToMainWidget());
-  }
-
-  Future<void> _navigateToMainWidget() async {
+  Future<void> actionOnAppear() async {
     // 500ミリ秒遅延させる
     await Future<void>.delayed(const Duration(milliseconds: 500));
 
@@ -33,8 +29,8 @@ class _GreenWidgetState extends State<GreenWidget> {
       ),
     );
 
-    // 再度 `_navigateToMainWidget` を呼び出す
-    await _navigateToMainWidget();
+    // 再起的に呼び出す
+    await actionOnAppear();
   }
 
   @override
