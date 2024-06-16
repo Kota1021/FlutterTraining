@@ -38,7 +38,9 @@ class _MainViewState extends State<MainView> {
                     children: [
                       Expanded(
                         child: TextButton(
-                          onPressed: () {/* ボタンがタップされた時の処理 */},
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
                           child: Text(
                             'Close',
                             textAlign: TextAlign.center,
